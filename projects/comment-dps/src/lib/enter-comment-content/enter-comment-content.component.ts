@@ -33,7 +33,7 @@ export class JeeCommentEnterCommentContentComponent implements OnInit, AfterView
     , private signalrService: JeeCommentSignalrService,
 
   ) { }
-
+  @Input() UserCurrent_lib: string = '';
   @Input('objectID') objectID: string = '';
   @Input('appCode') appCode: string = '';
   @Input('commentID') commentID: string = '';
@@ -168,6 +168,7 @@ export class JeeCommentEnterCommentContentComponent implements OnInit, AfterView
   }
 
   ngOnInit() {
+    this.service.getAvatar(this.UserCurrent_lib)
     this.imagesUrl = [];
     this.videosUrl = [];
     this.filesUrl = [];

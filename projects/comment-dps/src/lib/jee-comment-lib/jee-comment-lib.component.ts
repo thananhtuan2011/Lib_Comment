@@ -45,7 +45,7 @@ export class JeeCommentLibComponent implements OnInit, OnChanges {
   @Input() showCommentDefault?: boolean;
   @Input() number: number = 0;
   @Input() componentName: string = '';
-  @Input() appCode: string = '';
+  @Input() UserCurrent_lib: string = '';
   @Input() showonpopup: boolean = false;
   @Output() changeValue = new EventEmitter<any>();
   public lstObjectID: string[] = [];

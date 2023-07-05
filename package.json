@@ -32,6 +32,7 @@
     "ng-inline-svg": "^10.1.0",
     "ng2-file-upload": "^1.4.0",
     "ngx-avatar": "^4.1.0",
+    "font-awesome": "^4.7.0",
     "ngx-mat-select-search": "^3.3.0",
     "ngx-quill": "^14.3.0",
     "quill-mention": "^3.0.4",

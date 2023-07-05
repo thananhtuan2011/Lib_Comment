@@ -5,8 +5,8 @@ export const environment = {
   HOST_JEEMEETING_API: 'https://jeemeeting-api.jee.vn',
   HOST_JEETEAM_API: 'https://team-api.jee.vn',
 };
-export const version = {
-  lib: {
-    ver: "1.0",
-  }
-};
+// export const version = {
+//   lib: {
+//     ver: "1.0",
+//   }
+// };

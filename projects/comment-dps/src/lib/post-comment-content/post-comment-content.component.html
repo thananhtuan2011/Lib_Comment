@@ -107,7 +107,7 @@
             </div>
         </li>
     </ng-container>
-    <jeecomment-enter-comment-content *ngIf="isEdit$ | async" [isEdit]="(isEdit$ | async)!" [isFocus$]="isFocus$$"
+    <jeecomment-enter-comment-content *ngIf="isEdit$ | async" [UserCurrent_lib]="UserCurrent" [isEdit]="(isEdit$ | async)!" [isFocus$]="isFocus$$"
         [objectID]="objectID" [commentID]="commentID" [editCommentModel]="comment" [replyCommentID]="replyCommentID"
         (isEditEvent)="isEditEventChange($event)" [appCode]="appCode">
     </jeecomment-enter-comment-content>
@@ -142,7 +142,7 @@
                 [comment]="reply" [inputLstObjectID]="lstObjectID" [isDeteachChange$]="isDeteachChangeComment$"
                 [appCode]="appCode">
             </jeecomment-post-comment-content>
-            <jeecomment-enter-comment-content [isFocus$]="isFocus$$"
+            <jeecomment-enter-comment-content [UserCurrent_lib]="UserCurrent" [isFocus$]="isFocus$$"
                 *ngIf="(showEnterComment$.asObservable() | async) && lstObjectID.length <= 3" [objectID]="objectID"
                 [commentID]="commentID" [appCode]="appCode">
             </jeecomment-enter-comment-content>

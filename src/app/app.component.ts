@@ -8,6 +8,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class AppComponent implements OnInit {
   title = 'comment-lib';
+  UserCurrent_lib: string = 'congtytest.tuan'
   topicObjectID$: BehaviorSubject<string> = new BehaviorSubject<string>('');
   ngOnInit(): void {
 

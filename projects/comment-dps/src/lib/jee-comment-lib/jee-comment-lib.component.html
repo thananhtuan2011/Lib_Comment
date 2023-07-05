@@ -52,13 +52,13 @@
                 </div>
                 <ng-container *ngFor="let comment of item.Comments">
                     <jeecomment-post-comment-content [isDeteachChange$]="isDeteachChange$"
-                        [inputLstObjectID]="lstObjectID" [comment]="comment" [appCode]="appCode">
+                        [inputLstObjectID]="lstObjectID" [comment]="comment" [UserCurrent]="UserCurrent_lib">
                     </jeecomment-post-comment-content>
                 </ng-container>
             </ng-container>
             <ng-container *ngIf="(errorMessage$ | async) === ''">
-                <jeecomment-enter-comment-content *ngIf="!isFirstTime" [objectID]="objectID" [appCode]="appCode"
-                    (isEditEvent)="IsEditEvent($event)"> </jeecomment-enter-comment-content>
+                <jeecomment-enter-comment-content *ngIf="!isFirstTime" [objectID]="objectID" 
+                    (isEditEvent)="IsEditEvent($event)" [UserCurrent_lib]="UserCurrent_lib"> </jeecomment-enter-comment-content>
             </ng-container>
         </div>
     </ng-template>

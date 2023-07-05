@@ -26,7 +26,7 @@
   color: rgb(28, 30, 33);
   direction: ltr;
   display: flex;
-  height: 39px;
+  height: 19px;
   pointer-events: auto;
   padding-top: 19px;
   padding-bottom: 5px;
@@ -119,7 +119,7 @@
 
 .mat-tooltip {
   color: white !important;
-  // border-radius: 50px !important;
-  // background-color: black !important;
+  border-radius: 50px !important;
+  background-color: black !important;
   font-weight: 600 !important;
 }

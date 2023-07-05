@@ -123,7 +123,6 @@ export class JeeCommentService {
   }
 
   private getHttpParamsFilter(filter: QueryFilterComment): HttpParams {
-    console.log("filter", filter)
     let query = new HttpParams().set('ViewLengthComment', filter.ViewLengthComment ? filter.ViewLengthComment.toString() : '10').set('Date', filter.Date.toISOString());
     return query;
   }
@@ -133,7 +132,7 @@ export class JeeCommentService {
       .pipe(
         tap((res: any) => {
           if (res) {
-            const usernamelogin = 'congtytest.tuan'
+            // const usernamelogin = 'congtytest.tuan'
             // const usernamelogin = this._authService.getAuthFromLocalStorage()['user']['username'];
             res.data.forEach((element: any) => {
               // init ListUserCommentInfo
@@ -151,7 +150,7 @@ export class JeeCommentService {
               this._lstUser.push(item);
 
               // init main User Login
-              if (usernamelogin === item.Username) this._mainUser$.next(item);
+              // if (usernamelogin === item.Username) this._mainUser$.next(item);
             });
             this._lstUser.sort((a, b) => a.FullName.localeCompare(b.FullName));
           } else {
@@ -189,7 +188,10 @@ export class JeeCommentService {
     if (object) return object.Display;
     return username!;
   }
-
+  public getAvatar(username?: string) {
+    const object = this._lstUser.find((element) => element.Username === username);
+    this._mainUser$.next(object!)
+  }
   public getUriAvatar(username?: string): string {
     const avatar = this._lstUser.find((element) => element.Username === username);
     if (avatar) return avatar.AvartarImgURL;

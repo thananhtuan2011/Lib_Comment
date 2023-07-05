@@ -57,6 +57,7 @@ export class JeeCommentPostContentComponent implements OnInit, OnDestroy {
   commentID: string = '';
   replyCommentID: string = '';
   @Input('appCode') appCode: string = '';;
+  @Input('UserCurrent') UserCurrent: string = '';
   @Input('comment') comment?: CommentDTO;
   @Input('showCommentDefault') showCommentDefault?: boolean;
   @Input('isDeteachChange$') isDeteachChange$?: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -74,7 +75,6 @@ export class JeeCommentPostContentComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    console.log("lstObjectID", this.lstObjectID)
     const sb = this.service._reloadComment$.subscribe(res => {
       this.listComent = res;
       this.initObjectID();
@@ -333,7 +333,7 @@ export class JeeCommentPostContentComponent implements OnInit, OnDestroy {
 
   isShowEdit(username: string): boolean {
     // let mainUsername = this._auth.getAuthFromLocalStorage()['user']['username'];
-    let mainUsername = "congtytest.tuan"
+    let mainUsername = this.UserCurrent
     if (username === mainUsername) {
       return true;
     }
