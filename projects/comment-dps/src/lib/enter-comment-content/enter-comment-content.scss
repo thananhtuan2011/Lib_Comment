@@ -1,0 +1,82 @@
+$color-x-button: black;
+$color-hover-x-button: #1ebcc5;
+$hover-color: #f2f2f2;
+.enter-post-comment {
+    padding-right: 16px;
+}
+
+.show-icon {
+    position: absolute;
+    bottom: 100%;
+    z-index: 9999;
+    left: 50%;
+}
+
+.enter-post-comment-image {
+    padding-top: 0px;
+    img {
+        border: 0;
+        max-height: 37.5vh;
+        max-width: 25vw;
+        padding-bottom: 5px;
+        padding-right: 5px;
+        border-radius: 18px;
+    }
+}
+
+.enter-post-comment-video {
+    padding-top: 0px;
+    video {
+        border: 0;
+        max-height: 47.5vh;
+        max-width: 80vw;
+        padding-bottom: 5px;
+        padding-right: 5px;
+        border-radius: 18px;
+    }
+}
+
+.video-preview {
+    display: inline-flex;
+    margin-right: 20px;
+    vertical-align: top;
+}
+
+.img-preview {
+    display: inline-flex;
+    margin-right: 20px;
+    vertical-align: top;
+}
+
+
+.post-comment-cancle {
+    font-family: 'Roboto';
+    padding-left: 48px;
+    text-align: start;
+}
+
+.span-cancel-comment {
+    font-weight: 600;
+    color: #1ebcc5;
+}
+
+.errorcomment
+{
+  background: #1438ba99;
+  border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 5px;
+    margin-top: 10px;
+}
+
+.comment-zone {
+    position: relative;
+}
+
+.tag-comment-show {
+    position: absolute;
+    left: 50%;
+    margin-left: -134px;
+    bottom: 55px;
+}
