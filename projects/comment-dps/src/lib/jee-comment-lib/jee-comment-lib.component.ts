@@ -17,7 +17,7 @@ import { TranslationService } from '../i18n/translation.service';
   styleUrls: ['jee-comment-light.scss', 'jee-comment-dark.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class JeeCommentLibComponent implements OnInit, OnChanges {
+export class JeeCommentLibComponent implements OnInit {
   private readonly onDestroy = new Subject<void>();
   private _isLoading$ = new BehaviorSubject<boolean>(false);
   private _errorMessage$ = new BehaviorSubject<string>('');
@@ -48,6 +48,8 @@ export class JeeCommentLibComponent implements OnInit, OnChanges {
   @Input() UserCurrent_lib: string = '';
   @Input() showonpopup: boolean = false;
   @Output() changeValue = new EventEmitter<any>();
+
+  @Output() NotifyComentEventSub = new EventEmitter<any>();
   public lstObjectID: string[] = [];
 
   //demo
@@ -71,14 +73,14 @@ export class JeeCommentLibComponent implements OnInit, OnChanges {
 
     );
   }
-  ngOnChanges(changes: SimpleChanges) {
-    this.lstObjectID = [];
-    this.labelFilterComment = this.translate.instant('JEECOMMENT.BINHLUANMOINHAT');
-    this.objectID = changes["objectID"].currentValue;
-    this.isFirstTime = true;
-    this.clickButtonCommentChange(changes["objectID"].currentValue)
+  // ngOnChanges(changes: SimpleChanges) {
+  //   this.lstObjectID = [];
+  //   this.labelFilterComment = this.translate.instant('JEECOMMENT.BINHLUANMOINHAT');
+  //   this.objectID = changes["objectID"].currentValue;
+  //   this.isFirstTime = true;
+  //   this.clickButtonCommentChange(changes["objectID"].currentValue)
 
-  }
+  // }
   getShowTopicChange(objectID: any) {
     this._isLoading$.next(true);
     this.service
@@ -428,5 +430,9 @@ export class JeeCommentLibComponent implements OnInit, OnChanges {
     if (val) {
       this.changeValue.emit(val);
     }
+  }
+  NotifyComent(event: any) {
+    // console.log("Eddd", event)
+    this.NotifyComentEventSub.emit(event)
   }
 }

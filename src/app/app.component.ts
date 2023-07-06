@@ -10,6 +10,9 @@ export class AppComponent implements OnInit {
   title = 'comment-lib';
   UserCurrent_lib: string = 'congtytest.tuan'
   topicObjectID$: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  NotifyComent(event: any) {
+    // console.log("Eddd", event)
+  }
   ngOnInit(): void {
 
     this.topicObjectID$.next('62cd44a7be0f42a056f066ac');

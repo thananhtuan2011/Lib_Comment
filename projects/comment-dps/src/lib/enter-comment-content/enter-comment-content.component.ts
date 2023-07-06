@@ -45,7 +45,7 @@ export class JeeCommentEnterCommentContentComponent implements OnInit, AfterView
   private isEdit$ = new BehaviorSubject<boolean>(false);
   @Input('isFocus$') isFocus$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   @Input('editCommentModel') commentModelDto?: CommentDTO;
-
+  @Output() NotifyComentEvent = new EventEmitter<any>();
   @Output('isEditEvent') isEditEvent = new EventEmitter<boolean>();
   isloadingrepost: boolean = false
   showPopupEmoji!: boolean;
@@ -443,43 +443,44 @@ export class JeeCommentEnterCommentContentComponent implements OnInit, AfterView
             //   this.isDeteachChange$.next(true);
             // }
             // TODO: viết api notify trong này
+            this.NotifyComentEvent.emit(model)
             this.service.notifyComment(model);
-            // dùng cho jeemeeting
-            if (model.AppCode) {
-              if (model.AppCode.includes('MEETING')) {
-                this.store.notify = model
-              }
-            }
+            // // dùng cho jeemeeting
+            // if (model.AppCode) {
+            //   if (model.AppCode.includes('MEETING')) {
+            //     this.store.notify = model
+            //   }
+            // }
 
-            // dùng cho jeerequest
-            if (model.AppCode) {
-              if (model.AppCode.includes('REQUEST')) {
-                this.store.notifyRequest = model
-              }
-            }
+            // // dùng cho jeerequest
+            // if (model.AppCode) {
+            //   if (model.AppCode.includes('REQUEST')) {
+            //     this.store.notifyRequest = model
+            //   }
+            // }
 
-            //dungf cho jeeteam
-            if (model.AppCode) {
-              if (model.AppCode.includes('TEAM')) {
-                let item = {
-                  itemjeeteam: model,
-                  listTag: this._lstTag
-                }
-                this.store.notifyteam = item
-              }
-            }
-            // Đếm lại số lượng comment cho JeeWork
-            if (model.AppCode) {
-              if (model.AppCode.includes('WORK')) {
-                const objSave: any = {};
-                objSave.id_topic = res.Id;
-                objSave.comment = model.Text ? model.Text : 'has comment';
-                objSave.id_parent = 0;
-                objSave.object_type = 0;
-                objSave.object_id_new = model.TopicCommentID;
-                this.Luulogcomment(objSave);
-              }
-            }
+            // //dungf cho jeeteam
+            // if (model.AppCode) {
+            //   if (model.AppCode.includes('TEAM')) {
+            //     let item = {
+            //       itemjeeteam: model,
+            //       listTag: this._lstTag
+            //     }
+            //     this.store.notifyteam = item
+            //   }
+            // }
+            // // Đếm lại số lượng comment cho JeeWork
+            // if (model.AppCode) {
+            //   if (model.AppCode.includes('WORK')) {
+            //     const objSave: any = {};
+            //     objSave.id_topic = res.Id;
+            //     objSave.comment = model.Text ? model.Text : 'has comment';
+            //     objSave.id_parent = 0;
+            //     objSave.object_type = 0;
+            //     objSave.object_id_new = model.TopicCommentID;
+            //     this.Luulogcomment(objSave);
+            //   }
+            // }
           },
           catchError((err) => {
 
