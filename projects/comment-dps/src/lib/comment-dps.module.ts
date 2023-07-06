@@ -13,6 +13,7 @@ import { MatMenuModule } from "@angular/material/menu";
 import { MatIconModule } from '@angular/material/icon';
 import { GalleryModule } from "ng-gallery";
 import { LightboxModule } from 'ng-gallery/lightbox';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { QuillModule } from 'ngx-quill';
 import { EmojiModule } from '@ctrl/ngx-emoji-mart/ngx-emoji';
 import { JeeCommentReactionContentComponent } from "./reaction-comment-content/reaction-comment-content.component";
@@ -28,6 +29,11 @@ import { NgxMatSelectSearchModule } from "ngx-mat-select-search";
 // import { InlineSVGModule } from "ng-inline-svg";
 import { MatInputModule } from '@angular/material/input';
 import { MatChipsModule } from '@angular/material/chips';
+import { CommentDpsComponent } from "./comment-dps.component";
+import { DeleteEntityDialogComponent } from "./delete-entity-dialog/delete-entity-dialog.component";
+import { ActionNotificationComponent } from "./action-natification/action-notification.component";
+import { LayoutUtilsService } from "./services/layout-utils.service";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 @NgModule({
   imports: [
     CommonModule,
@@ -40,7 +46,9 @@ import { MatChipsModule } from '@angular/material/chips';
     // InlineSVGModule,
     TranslationModule,
     AvatarModule,
+    MatProgressBarModule,
     MatInputModule,
+    MatSnackBarModule,
     MatDialogModule,
     MatChipsModule,
     LightboxModule,
@@ -54,16 +62,20 @@ import { MatChipsModule } from '@angular/material/chips';
   ],
   declarations: [
     JeeCommentLibComponent,
+    CommentDpsComponent,
     JeeCommentPostContentComponent,
     JeeCommentReactionShowComponent,
     JeeCommentEnterCommentContentComponent,
     JeeCommentReactionContentComponent,
+    DeleteEntityDialogComponent,
+    ActionNotificationComponent
   ],
   providers: [
     JeeCommentService,
     JeeCommentSignalrService,
     HttpUtilsService,
     AuthService,
+    LayoutUtilsService
   ],
   entryComponents: [
     JeeCommentLibComponent,
@@ -71,13 +83,18 @@ import { MatChipsModule } from '@angular/material/chips';
     JeeCommentReactionShowComponent,
     JeeCommentEnterCommentContentComponent,
     JeeCommentReactionContentComponent,
+    DeleteEntityDialogComponent,
+    ActionNotificationComponent
   ],
   exports: [
+    CommentDpsComponent,
     JeeCommentLibComponent,
     JeeCommentPostContentComponent,
     JeeCommentReactionShowComponent,
     JeeCommentEnterCommentContentComponent,
     JeeCommentReactionContentComponent,
+    DeleteEntityDialogComponent,
+    ActionNotificationComponent
   ],
 })
 export class JeeCommentLibModule { }

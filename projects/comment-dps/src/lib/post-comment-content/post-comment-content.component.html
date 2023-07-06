@@ -138,7 +138,7 @@
                     <i data-visualcompletion="css-img" class="item-align-middle" id="filter-icon"></i>
                 </div>
             </div>
-            <jeecomment-post-comment-content (isFocus)="getFocus($event)" *ngFor="let reply of comment.Replies"
+            <jeecomment-post-comment-content   [UserCurrent]="UserCurrent"(isFocus)="getFocus($event)" *ngFor="let reply of comment.Replies"
                 [comment]="reply" [inputLstObjectID]="lstObjectID" [isDeteachChange$]="isDeteachChangeComment$"
                 [appCode]="appCode">
             </jeecomment-post-comment-content>

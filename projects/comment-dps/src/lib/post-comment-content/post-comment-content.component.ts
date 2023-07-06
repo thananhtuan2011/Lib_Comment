@@ -19,6 +19,8 @@ import { Gallery, GalleryItem, ImageSize, ThumbnailsPosition } from 'ng-gallery'
 import { MatDialog } from '@angular/material/dialog';
 import { CommentDTO, QueryFilterComment } from '../Models/jee-comment.model';
 import { AuthService } from '../services/auth.service';
+import { DeleteEntityDialogComponent } from '../delete-entity-dialog/delete-entity-dialog.component';
+import { LayoutUtilsService, MessageType } from '../services/layout-utils.service';
 @Component({
   selector: 'jeecomment-post-comment-content',
   templateUrl: 'post-comment-content.component.html',
@@ -70,6 +72,7 @@ export class JeeCommentPostContentComponent implements OnInit, OnDestroy {
     private elementRef: ElementRef,
     private translate: TranslateService,
     public dialog: MatDialog,
+    private layoutUtilsService: LayoutUtilsService,
     public gallery: Gallery,
     private _auth: AuthService
   ) { }
@@ -238,86 +241,81 @@ export class JeeCommentPostContentComponent implements OnInit, OnDestroy {
   }
 
   delete() {
+    let saveMessageTranslateParam = 'COMMOM.XOATHANHCONG';
+    const saveMessage = this.translate.instant(saveMessageTranslateParam);
+    const messageType = MessageType.Create;
 
-    // let saveMessageTranslateParam = 'COMMOM.XOATHANHCONG';
-    // const saveMessage = this.translate.instant(saveMessageTranslateParam);
-    // const messageType = MessageType.Create;
-    // const title = "Thông báo";
-    // const description = "Bạn có muốn xóa";
-    // const waitDesciption = "Đang xóa..."
-    // const dialogRef = this.dialog.open(DeleteEntityDialogComponent, {
-    //   data: { title, description, waitDesciption },
-    //   width: '450px',
-    //   panelClass: "no-padding"
-    // });
-    // dialogRef
-    //   .afterClosed()
-    //   .pipe(
-    //     catchError((err) => {
-    //       console.log(err);
-    //       this._errorMessage$.next(err);
-    //       return of();
-    //     }),
-    //     finalize(() => { }),
-    //     takeUntil(this.onDestroy),
-    //     share()
-    //   )
-    //   .subscribe((res) => {
-    //     if (!res) {
-    //       this.isEdit$.next(false);
-    //     } else {
-    //       if (this.replyCommentID) {
-    //         this.service
-    //           .deleteReplyComment(this.objectID, this.commentID, this.replyCommentID)
-    //           .pipe(
-    //             catchError((err) => {
-    //               console.log(err);
-    //               this.layoutUtilsService.showActionNotification(
-    //                 err.error.message,
-    //                 MessageType.Read,
-    //                 999999999,
-    //                 true,
-    //                 false,
-    //                 3000,
-    //                 'top',
-    //                 0
-    //               );
-    //               this._errorMessage$.next(err);
-    //               return of();
-    //             }),
-    //             finalize(() => { }),
-    //             takeUntil(this.onDestroy),
-    //             share()
-    //           )
-    //           .subscribe();
-    //       } else {
-    //         this.service
-    //           .deleteComment(this.objectID, this.commentID)
-    //           .pipe(
-    //             catchError((err) => {
-    //               console.log(err);
-    //               this.layoutUtilsService.showActionNotification(
-    //                 err.error.message,
-    //                 MessageType.Read,
-    //                 999999999,
-    //                 true,
-    //                 false,
-    //                 3000,
-    //                 'top',
-    //                 0
-    //               );
-    //               this._errorMessage$.next(err);
-    //               return of();
-    //             }),
-    //             finalize(() => { }),
-    //             takeUntil(this.onDestroy),
-    //             share()
-    //           )
-    //           .subscribe();
-    //       }
-    //     }
-    //   });
-
+    const dialogRef = this.dialog.open(DeleteEntityDialogComponent, {
+      data: { title: "Xóa bình luận", description: "Bạn có muốn xóa không ?", waitDesciption: "Đang xóa bình luận" },
+      width: '450px',
+    });
+    dialogRef
+      .afterClosed()
+      .pipe(
+        catchError((err) => {
+          console.log(err);
+          this._errorMessage$.next(err);
+          return of();
+        }),
+        finalize(() => { }),
+        takeUntil(this.onDestroy),
+        share()
+      )
+      .subscribe((res) => {
+        if (!res) {
+          this.isEdit$.next(false);
+        } else {
+          if (this.replyCommentID) {
+            this.service
+              .deleteReplyComment(this.objectID, this.commentID, this.replyCommentID)
+              .pipe(
+                catchError((err) => {
+                  console.log(err);
+                  this.layoutUtilsService.showActionNotification(
+                    err.error.message,
+                    MessageType.Read,
+                    999999999,
+                    true,
+                    false,
+                    3000,
+                    'top',
+                    0
+                  );
+                  this._errorMessage$.next(err);
+                  return of();
+                }),
+                finalize(() => { }),
+                takeUntil(this.onDestroy),
+                share()
+              )
+              .subscribe();
+          } else {
+            this.service
+              .deleteComment(this.objectID, this.commentID)
+              .pipe(
+                catchError((err) => {
+                  console.log(err);
+                  this.layoutUtilsService.showActionNotification(
+                    err.error.message,
+                    MessageType.Read,
+                    999999999,
+                    true,
+                    false,
+                    3000,
+                    'top',
+                    0
+                  );
+                  this._errorMessage$.next(err);
+                  return of();
+                }),
+                finalize(() => { }),
+                takeUntil(this.onDestroy),
+                share()
+              )
+              .subscribe();
+          }
+        }
+      });
   }
 
   @ViewChild('videoPlayer') videoplayer!: ElementRef;
@@ -341,10 +339,10 @@ export class JeeCommentPostContentComponent implements OnInit, OnDestroy {
   }
 
   mouseEnterReactionCommentShow(event: any) {
-    console.log('okela');
+    // console.log('okela');
   }
   mouseLeaveReactionCommentShow(event: any) {
-    console.log('huhu');
+    // console.log('huhu');
   }
   //lkq
   @ViewChild('itemTemplate', { static: true }) itemTemplate: TemplateRef<any> | undefined;
