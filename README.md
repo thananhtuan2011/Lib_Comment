@@ -1,27 +1,79 @@
-# CommentLib
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.19.
+# Angular X Comment
 
-## Development server
+A configurable Angular image viewer component, compatible with Angular 11.x+ 
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Features:
+ * Compatible with Angular 11.x+
+ * Configurable
 
-## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Set up
 
-## Build
+To use default configuration, simply import the ImageViewerModule into your module, like so:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+```javascript
+import { JeeCommentLibModule } from "comment-dps";
 
-## Running unit tests
+@NgModule({
+  //...
+  imports: [
+    //...
+    JeeCommentLibModule
+  ],
+  //...
+})
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Then, add the component to your template, providing an array of image URLs. You can also optionally add an index, to indicate which image should be shown first. The default will be the first item in the array.
 
-## Running end-to-end tests
+```html
+  <jee-comment-lib (NotifyComentEventSub)="NotifyComent($event)" [UserCurrent_lib]="UserCurrent_lib"  [showCommentDefault]="true" [objectID]="(topicObjectID$.asObservable() | async)!">
+  </jee-comment-lib>
+```
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+```javascript
+  UserCurrent_lib: string = 'congtytest.tuan'
+  topicObjectID$: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  NotifyComent(event: any) {
+    // nơi nhận sự kiện để comment để  gọi thông báo
+    // console.log("Eddd", event)
+  }
+  //topicObjectID$ là topicIDcomment
+  //UserCurrent_lib là username login
+```
 
-## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+---
+
+## Configuration
+-Các thư viện cần sử dụng ở app để hoạt động ở lib
+
+```javascript
+ CommonModule,
+    FormsModule,
+    TranslateModule,
+    MatMenuModule,
+    MatIconModule,
+    GalleryModule,
+    NgxMatSelectSearchModule,
+    // InlineSVGModule,
+    TranslationModule,
+    AvatarModule,
+    MatProgressBarModule,
+    MatInputModule,
+    MatSnackBarModule,
+    MatDialogModule,
+    MatChipsModule,
+    LightboxModule,
+    QuillModule.forRoot(),
+    EmojiModule,
+    MatFormFieldModule,
+    MatTooltipModule,
+    PickerModule,
+    ReactiveFormsModule,
+    AngularImageViewerModule,
+```
+
+
+

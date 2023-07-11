@@ -14,7 +14,7 @@ const LOCALIZATION_LOCAL_STORAGE_KEY = 'language';
 @Injectable({
   providedIn: 'root',
 })
-export class TranslationService {
+export class TranslationCommentService {
   // Private properties
   private langIds: any = [];
 

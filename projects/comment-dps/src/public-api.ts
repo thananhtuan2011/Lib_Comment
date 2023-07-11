@@ -10,3 +10,4 @@ export * from './lib/services/jee-comment-signalr.service';
 export * from './lib/services/jee-comment.service';
 export * from './lib/services/jee-comment.store';
 export * from './lib/services/layout-utils.service';
+export * from './lib/i18n/translationcomment.service';

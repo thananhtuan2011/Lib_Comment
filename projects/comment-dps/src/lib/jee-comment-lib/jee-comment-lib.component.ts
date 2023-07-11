@@ -10,7 +10,7 @@ import { locale as enLang } from '../i18n/vocabs/en';
 import { locale as chLang } from '../i18n/vocabs/ch';
 import { locale as esLang } from '../i18n/vocabs/es';
 import { locale as viLang } from '../i18n/vocabs/vi';
-import { TranslationService } from '../i18n/translation.service';
+import { TranslationCommentService } from '../i18n/translationcomment.service';
 @Component({
   selector: 'jee-comment-lib',
   templateUrl: './jee-comment-lib.component.html',
@@ -60,7 +60,7 @@ export class JeeCommentLibComponent implements OnInit {
   constructor(
     public service: JeeCommentService,
     public cd: ChangeDetectorRef,
-    private translationService: TranslationService,
+    private translationService: TranslationCommentService,
     private elementRef: ElementRef,
     private signalrService: JeeCommentSignalrService,
     private translate: TranslateService
