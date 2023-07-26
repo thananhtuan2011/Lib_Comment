@@ -8,7 +8,7 @@
     <div class="post-comment-input" style="align-items: center; position: relative">
       <quill-editor (keyup.escape)="cancleComment()" (onSelectionChanged)="onSelectionChanged($event)"
         (keyup.enter)="validateCommentAndPost()" class="textarea-input" placeholder="Viết bình luận"
-        name="messageContent" [modules]="modules" [(ngModel)]="inputTextArea">
+        name="messageContent"   [formats]="formats"   (paste)="onPaste($event)" [modules]="modules" [(ngModel)]="inputTextArea">
       </quill-editor>
       <ul class="comment-icon">
         <li class="icon">

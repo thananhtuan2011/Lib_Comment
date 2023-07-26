@@ -51,7 +51,7 @@
                     </mat-menu>
                 </div>
                 <ng-container *ngFor="let comment of item.Comments">
-                    <jeecomment-post-comment-content [isDeteachChange$]="isDeteachChange$"
+                    <jeecomment-post-comment-content (deletecmt)="DeleteComent($event)" [isDeteachChange$]="isDeteachChange$"
                         [inputLstObjectID]="lstObjectID" [comment]="comment" [UserCurrent]="UserCurrent_lib">
                     </jeecomment-post-comment-content>
                 </ng-container>
@@ -62,4 +62,5 @@
             </ng-container>
         </div>
     </ng-template>
+    
 </div>

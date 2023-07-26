@@ -33,6 +33,30 @@ export class JeeCommentEnterCommentContentComponent implements OnInit, AfterView
     , private signalrService: JeeCommentSignalrService,
 
   ) { }
+  formats = [
+    'background',
+    'bold',
+    'color',
+    'font',
+    'code',
+    'italic',
+    'link',
+    'size',
+    'strike',
+    'script',
+    'mention',
+    'underline',
+    'blockquote',
+    'header',
+    'indent',
+    'list',
+    'align',
+    'direction',
+    'code-block',
+    'formula',
+    // 'image',
+    // 'video'
+  ];
   @Input() UserCurrent_lib: string = '';
   @Input('objectID') objectID: string = '';
   @Input('appCode') appCode: string = '';
@@ -46,6 +70,7 @@ export class JeeCommentEnterCommentContentComponent implements OnInit, AfterView
   @Input('isFocus$') isFocus$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   @Input('editCommentModel') commentModelDto?: CommentDTO;
   @Output() NotifyComentEvent = new EventEmitter<any>();
+
   @Output('isEditEvent') isEditEvent = new EventEmitter<boolean>();
   isloadingrepost: boolean = false
   showPopupEmoji!: boolean;
@@ -280,7 +305,30 @@ export class JeeCommentEnterCommentContentComponent implements OnInit, AfterView
     this.cd.detectChanges();
     this.isFocus$.next(true);
   }
+  onPaste(event: any) {
 
+    const items = (event.clipboardData || event.originalEvent.clipboardData).items;
+    let blob = null;
+    var filesAmount = event.clipboardData.files.length;
+    for (const item of items) {
+      if (item.type.indexOf('image') === 0) {
+        blob = item.getAsFile();
+      }
+    }
+
+    // load image if there is a pasted image
+    if (blob !== null) {
+      let base64Str: any;
+      var file_name = blob;
+      const reader = new FileReader();
+      reader.readAsDataURL(blob);
+      reader.onload = (evt: any) => {
+        this.imagesUrl.push(evt.target.result);
+        this.cd.detectChanges();
+      };
+
+    }
+  }
   FocusTextarea() {
     // this.txtarea.nativeElement.focus();
     this.editor.quillEditor.focus()
@@ -373,7 +421,6 @@ export class JeeCommentEnterCommentContentComponent implements OnInit, AfterView
     this._lstTag.forEach((element) => {
       if (input.search('@' + element.Display) >= 0) lstTag.push(element);
     });
-    console.log(this._lstTag);
     return lstTag;
   }
 
@@ -401,7 +448,10 @@ export class JeeCommentEnterCommentContentComponent implements OnInit, AfterView
       .updateCommentModel(model)
       .pipe(
         tap(
-          (res) => { },
+          (res) => {
+
+
+          },
           catchError((err) => {
             console.log(err);
             return of();

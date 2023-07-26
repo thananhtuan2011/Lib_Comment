@@ -1,4 +1,4 @@
-// import { JeeCommentLibModule } from './../../projects/comment-dps/src/lib/comment-dps.module';
+import { JeeCommentLibModule } from './../../projects/comment-dps/src/lib/comment-dps.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -10,7 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AvatarModule } from 'ngx-avatar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
-import { JeeCommentLibModule } from "dps-comment"
+// import { JeeCommentLibModule } from "dps-comment"
 @NgModule({
   declarations: [
     AppComponent

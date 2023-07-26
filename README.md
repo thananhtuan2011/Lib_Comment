@@ -28,7 +28,7 @@ import { JeeCommentLibModule } from "comment-dps";
 Then, add the component to your template, providing an array of image URLs. You can also optionally add an index, to indicate which image should be shown first. The default will be the first item in the array.
 
 ```html
-  <jee-comment-lib (NotifyComentEventSub)="NotifyComent($event)" [UserCurrent_lib]="UserCurrent_lib"  [showCommentDefault]="true" [objectID]="(topicObjectID$.asObservable() | async)!">
+  <jee-comment-lib (changeValue)="ChangeComment($event)" (NotifyComentEventSub)="NotifyComent($event)" [UserCurrent_lib]="UserCurrent_lib"  [showCommentDefault]="true" [objectID]="(topicObjectID$.asObservable() | async)!">
   </jee-comment-lib>
 ```
 

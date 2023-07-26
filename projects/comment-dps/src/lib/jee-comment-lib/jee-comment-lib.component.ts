@@ -50,6 +50,8 @@ export class JeeCommentLibComponent implements OnInit {
   @Output() changeValue = new EventEmitter<any>();
 
   @Output() NotifyComentEventSub = new EventEmitter<any>();
+
+  @Output() DeleteComentEventSub = new EventEmitter<any>();
   public lstObjectID: string[] = [];
 
   //demo
@@ -272,10 +274,21 @@ export class JeeCommentLibComponent implements OnInit {
   updateLengCreate(currentLength: number, lengthLstCreate: number) {
     currentLength = currentLength + lengthLstCreate;
   }
-
   pushItemCommentInTopicComemnt(topicComment: TopicCommentDTO, lstChange: ChangeComment[]) {
     lstChange.forEach((element) => {
-      this.pushItem(topicComment.Id, topicComment.Comments, element, topicComment.TotalLengthComment, topicComment.ViewLengthComment);
+      if (element.LstChange[0].Attachs.Images.length > 0 || element.LstChange[0].Attachs.Files.length > 0
+      ) {
+
+        setTimeout(() => {
+          this.pushItem(topicComment.Id, topicComment.Comments, element, topicComment.TotalLengthComment, topicComment.ViewLengthComment);
+          this.isDeteachChange$!.next(true);
+        }, 1500);
+      }
+      else {
+        this.pushItem(topicComment.Id, topicComment.Comments, element, topicComment.TotalLengthComment, topicComment.ViewLengthComment);
+
+      }
+
     });
   }
 
@@ -304,7 +317,18 @@ export class JeeCommentLibComponent implements OnInit {
 
   editItemCommentInTopicComemnt(topicComment: TopicCommentDTO, lstChange: ChangeComment[]) {
     lstChange.forEach((comment) => {
-      this.editItem(topicComment.Id, topicComment.Comments, comment);
+      if (comment.LstChange[0].Attachs.Images.length > 0 || comment.LstChange[0].Attachs.Files.length > 0
+
+      ) {
+        setTimeout(() => {
+          this.editItem(topicComment.Id, topicComment.Comments, comment);
+          this.isDeteachChange$!.next(true);
+        }, 1500);
+      }
+      else {
+        this.editItem(topicComment.Id, topicComment.Comments, comment);
+      }
+
     });
   }
 
@@ -434,5 +458,8 @@ export class JeeCommentLibComponent implements OnInit {
   NotifyComent(event: any) {
     // console.log("Eddd", event)
     this.NotifyComentEventSub.emit(event)
+  }
+  DeleteComent(event: any) {
+    this.DeleteComentEventSub.emit(event)
   }
 }

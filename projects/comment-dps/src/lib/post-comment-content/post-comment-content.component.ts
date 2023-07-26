@@ -65,6 +65,7 @@ export class JeeCommentPostContentComponent implements OnInit, OnDestroy {
   @Input('isDeteachChange$') isDeteachChange$?: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   @Output('isFocus') isFocus = new EventEmitter<boolean>();
   private subscriptions: Subscription[] = [];
+  @Output() deletecmt = new EventEmitter<any>();
   isDeteachChangeComment$?: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   constructor(
     public service: JeeCommentService,
@@ -293,6 +294,10 @@ export class JeeCommentPostContentComponent implements OnInit, OnDestroy {
             this.service
               .deleteComment(this.objectID, this.commentID)
               .pipe(
+                tap(
+                  (res) => {
+
+                  }),
                 catchError((err) => {
                   console.log(err);
                   this.layoutUtilsService.showActionNotification(
@@ -314,6 +319,12 @@ export class JeeCommentPostContentComponent implements OnInit, OnDestroy {
               )
               .subscribe();
           }
+
+          let item = {
+            objectID: this.objectID,
+            commentID: this.commentID
+          }
+          this.deletecmt.emit(item)
         }
       });
   }
