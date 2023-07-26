@@ -52,7 +52,7 @@
                 </div>
                 <ng-container *ngFor="let comment of item.Comments">
                     <jeecomment-post-comment-content [isDeteachChange$]="isDeteachChange$"
-                        [inputLstObjectID]="lstObjectID" [comment]="comment" [UserCurrent]="UserCurrent_lib">
+                    (deletecmt)="DeleteComent($event)"   [inputLstObjectID]="lstObjectID" [comment]="comment" [UserCurrent]="UserCurrent_lib">
                     </jeecomment-post-comment-content>
                 </ng-container>
             </ng-container>

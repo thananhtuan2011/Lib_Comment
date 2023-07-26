@@ -6,10 +6,15 @@
       <img *ngIf="(service.mainUser$ | async)!.AvartarImgURL" id="img-avatar" src="{{ (service.mainUser$ | async)!.AvartarImgURL }}" />
     </div>
     <div class="post-comment-input" style="align-items: center; position: relative">
-      <quill-editor (keyup.escape)="cancleComment()" (onSelectionChanged)="onSelectionChanged($event)"
-        (keyup.enter)="validateCommentAndPost()" class="textarea-input" placeholder="Viết bình luận"
-        name="messageContent" [modules]="modules" [(ngModel)]="inputTextArea">
-      </quill-editor>
+      <quill-editor   (keyup.escape)="cancleComment()"
+      [formats]="formats"
+      (onSelectionChanged)="onSelectionChanged($event)"
+      (keyup.enter)="validateCommentAndPost()"    class="textarea-input"  placeholder="{{ 'JEECOMMENT.VIETBINHLUAN' | translate }}" name="messageContent" [modules]="modules"
+      [(ngModel)]="inputTextArea"
+      (paste)="onPaste($event)"
+     >
+     
+     </quill-editor>
       <ul class="comment-icon">
         <li class="icon">
           <span>

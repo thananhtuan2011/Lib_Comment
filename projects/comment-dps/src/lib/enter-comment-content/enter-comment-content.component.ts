@@ -33,6 +33,30 @@ export class JeeCommentEnterCommentContentComponent implements OnInit, AfterView
     , private signalrService: JeeCommentSignalrService,
 
   ) { }
+  formats = [
+    'background',
+    'bold',
+    'color',
+    'font',
+    'code',
+    'italic',
+    'link',
+    'size',
+    'strike',
+    'script',
+    'mention',
+    'underline',
+    'blockquote',
+    'header',
+    'indent',
+    'list',
+    'align',
+    'direction',
+    'code-block',
+    'formula',
+    // 'image',
+    // 'video'
+  ];
   @Input() UserCurrent_lib: string = '';
   @Input('objectID') objectID: string = '';
   @Input('appCode') appCode: string = '';
@@ -211,6 +235,30 @@ export class JeeCommentEnterCommentContentComponent implements OnInit, AfterView
       .subscribe();
 
     // this.hideCommentTag();
+  }
+  onPaste(event: any) {
+
+    const items = (event.clipboardData || event.originalEvent.clipboardData).items;
+    let blob = null;
+    var filesAmount = event.clipboardData.files.length;
+    for (const item of items) {
+      if (item.type.indexOf('image') === 0) {
+        blob = item.getAsFile();
+      }
+    }
+
+    // load image if there is a pasted image
+    if (blob !== null) {
+      let base64Str: any;
+      var file_name = blob;
+      const reader = new FileReader();
+      reader.readAsDataURL(blob);
+      reader.onload = (evt: any) => {
+        this.imagesUrl.push(evt.target.result);
+        this.cd.detectChanges();
+      };
+
+    }
   }
   getBase64ImageFromURL(url: string) {
     return Observable.create((observer: Observer<string>) => {

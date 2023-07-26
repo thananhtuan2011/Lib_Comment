@@ -37,7 +37,7 @@ export class JeeCommentPostContentComponent implements OnInit, OnDestroy {
   get errorMessage$() {
     return this._errorMessage$.asObservable();
   }
-
+  @Output() deletecmt = new EventEmitter<any>();
   isFirstTime: boolean = true;
   showSpinner$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   showEnterComment$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -314,7 +314,13 @@ export class JeeCommentPostContentComponent implements OnInit, OnDestroy {
               )
               .subscribe();
           }
+          let item = {
+            objectID: this.objectID,
+            commentID: this.commentID
+          }
+          this.deletecmt.emit(item)
         }
+
       });
   }
 
