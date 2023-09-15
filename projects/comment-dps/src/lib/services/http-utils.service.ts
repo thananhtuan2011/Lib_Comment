@@ -9,9 +9,26 @@ const KEY_SSO_TOKEN = 'sso_token';
 export class HttpUtilsService {
   constructor(private auth: AuthService, private cookieService: CookieService) { }
 
+  public getAuthFromLocalStorage(): any {
+    return JSON.parse(localStorage.getItem("getAuthFromLocalStorage")!);
+  }
+  getToken() {
+    const access_token = this.cookieService.get(KEY_SSO_TOKEN);
+    // console.log("access_token", access_token)
+    if (access_token) {
+      return access_token
+    }
+    else {
+      const dt = this.getAuthFromLocalStorage();
+      const tokenlocal = dt.access_token;
+      // console.log("tokenlocal", tokenlocal)
+      return tokenlocal
+    }
+
+  }
   getHTTPHeaders(): HttpHeaders {
     // const auth = this.auth.getAuthFromLocalStorage();
-    const access_token = this.cookieService.get(KEY_SSO_TOKEN);
+    const access_token = this.getToken();
     let result = new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: `Bearer ${access_token}`,

@@ -18,11 +18,29 @@ export class JeeCommentSignalrService {
     return this._showChange$.asObservable();
   }
   constructor(private http: HttpClient, private _authService: AuthService, private cookieService: CookieService) { }
+  public getAuthFromLocalStorage(): any {
 
+    return JSON.parse(localStorage.getItem("getAuthFromLocalStorage")!);
+  }
+  getToken() {
+    const access_token = this.cookieService.get(KEY_SSO_TOKEN);
+    // console.log("access_token", access_token)
+    if (access_token) {
+      return access_token
+    }
+    else {
+      const dt = this.getAuthFromLocalStorage();
+      const tokenlocal = dt.access_token;
+      // console.log("tokenlocal", tokenlocal)
+      return tokenlocal
+    }
+
+  }
   connectToken(topicObjectID: string) {
 
     // const data = this._authService.getAuthFromLocalStorage();
-    const access_token = this.cookieService.get(KEY_SSO_TOKEN);
+
+    const access_token = this.getToken()
     this.hubConnection = new HubConnectionBuilder()
 
       .withUrl(HUB_JEECOMMENT_URL + '?token=' + access_token + '&topicid=' + topicObjectID, {
@@ -62,7 +80,7 @@ export class JeeCommentSignalrService {
 
   disconnectToken() {
     // const data = this._authService.getAuthFromLocalStorage();
-    const access_token = this.cookieService.get(KEY_SSO_TOKEN);
+    const access_token = this.getToken();
     const token = `${access_token}`;
     this.hubConnection.stop();
   }
