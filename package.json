@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "buildlib": "ng build comment-dps "
+    "buildlib": "ng build comment-dps --prod"
   },
   "private": true,
   "dependencies": {

@@ -339,34 +339,52 @@ export class JeeCommentEnterCommentContentComponent implements OnInit, AfterView
   }
   RePostComment() {
     this._isLoading$.next(false);
-
+    this.isloadingrepost = true;
+    this.errorcoment = false
     this.signalrService.stopHubConnectionComment();
     setTimeout(() => {
       this.signalrService.connectToken(this.objectID);
     }, 1000);
 
-    setTimeout(() => {
-
-
-      if (!this._isLoading$.value) {
-        const model = this.prepareComment();
-        if (this.checkCommentIsEqualEmpty(model)) {
-          return;
+    setTimeout(async () => {
+      // console.log("await this.signalrService.CheckconnectComent()", await this.signalrService.CheckconnectComent())
+      if (await this.signalrService.CheckconnectComent() == true) {
+        if (!this._isLoading$.value) {
+          const model = this.prepareComment();
+          if (this.checkCommentIsEqualEmpty(model)) {
+            return;
+          }
+          if (this.isEdit$.value) {
+            this.updateComment(model);
+            this.isEdit$.next(false);
+          } else {
+            this.postComment(model);
+          }
         }
-        if (this.isEdit$.value) {
-          this.updateComment(model);
-          this.isEdit$.next(false);
-        } else {
-          this.errorcoment = false;
-          this.isloadingrepost = true;
-          this.postComment(model);
-        }
-
       }
+      else {
+        setTimeout(() => {
+
+
+          if (!this._isLoading$.value) {
+            const model = this.prepareComment();
+            if (this.checkCommentIsEqualEmpty(model)) {
+              return;
+            }
+            if (this.isEdit$.value) {
+              this.updateComment(model);
+              this.isEdit$.next(false);
+            } else {
+              this.postComment(model);
+            }
+          }
+        }, 1000);
+      }
+
     }, 3000);
   }
-  validateCommentAndPost() {
-    if (this.signalrService.CheckconnectComent() == true) {
+  async validateCommentAndPost() {
+    if (await this.signalrService.CheckconnectComent() == true) {
 
       if (!this._isLoading$.value) {
         const model = this.prepareComment();
@@ -383,12 +401,7 @@ export class JeeCommentEnterCommentContentComponent implements OnInit, AfterView
     }
     else {
       this.errorcoment = true;
-      if (this.objectID) {
-        this.signalrService.stopHubConnectionComment();
-        setTimeout(() => {
-          this.signalrService.connectToken(this.objectID);
-        }, 1000);
-      }
+      this.cd.detectChanges();
     }
   }
 
