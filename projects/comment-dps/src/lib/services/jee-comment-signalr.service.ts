@@ -52,11 +52,17 @@ export class JeeCommentSignalrService {
   }
 
   CheckconnectComent() {
+
     if (this.hubConnection.state == 'Disconnected') {
-      return false
+
+      return new Promise(resolve => {
+        resolve(false);
+      });
     }
     else {
-      return true;
+      return new Promise(resolve => {
+        resolve(true);
+      });
     }
   }
 
